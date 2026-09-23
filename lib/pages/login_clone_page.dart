@@ -46,7 +46,7 @@ class LoginClonePage extends StatelessWidget {
             TextButton(
               onPressed: () {},
               child: const Text(
-                "Lupa Kata Sandi? awok awok",
+                "Lupa Kata Sandi?",
                 style: TextStyle(color: Colors.black),
               ),
             ),

@@ -37,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
           Container(
             margin: const EdgeInsets.all(10),
             child: CustomTextField(
-              controller: txtUsername,
+              txtController: txtUsername,
               hintText: "input username",
             ),
           ),

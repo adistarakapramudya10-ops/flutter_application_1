@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; 
 
 class CustomTextField extends StatelessWidget {
-  final TextEditingController? controller; // Tambah ? di sini
+  final TextEditingController? txtController;
   final String hintText;
+  final TextInputType? keyboardType;
   final bool obscureText;
+  final List<TextInputFormatter>? inputFormatters; 
 
   const CustomTextField({
     super.key,
-    this.controller,
+    this.txtController,
     required this.hintText,
+    this.keyboardType, 
     this.obscureText = false,
+    this.inputFormatters,
   });
 
   @override
@@ -17,8 +22,10 @@ class CustomTextField extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: TextField(
-        controller: controller,
+        controller: txtController,
         obscureText: obscureText,
+        keyboardType: keyboardType, 
+        inputFormatters: inputFormatters, 
         decoration: InputDecoration(
           hintText: hintText,
           border: const OutlineInputBorder(),
