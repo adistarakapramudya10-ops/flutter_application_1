@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/controller/detail_makanan_controller.dart';
 import 'package:get/get.dart';
 
 class DetailsPage extends StatelessWidget {
@@ -6,122 +7,158 @@ class DetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic> args = Get.arguments ?? {};
-    final String namaMakanan = args['namaMakanan'] ?? 'Detail Makanan';
-    final String hargaMakanan = args['hargaMakanan']?.toString() ?? '0';
-    final String gambarMakanan = args['gambarMakanan'] ?? '';
-    final String deskripsiMakanan = args['deskripsiMakanan'] ?? '-';
-    final dynamic ratingMakanan = args['ratingMakanan'] ?? 5;
-    final String reviewMakanan = args['reviewMakanan'] ?? '-';
+  
+    final controller = Get.put(DetailMakananController());
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 190, 220, 223), 
+      backgroundColor: const Color.fromARGB(255, 245, 247, 248),
       appBar: AppBar(
-        title: Text(namaMakanan),
-        backgroundColor: const Color.fromARGB(255, 202, 19, 34),
+        title: Text(controller.namaMakanan),
+        backgroundColor: const Color.fromARGB(255, 226, 10, 10),
         foregroundColor: Colors.white,
+        elevation: 2,
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: gambarMakanan.isNotEmpty
-                    ? Image.network(
-                        gambarMakanan,
-                        height: 200,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) =>
-                            Container(
-                          height: 200,
-                          color: const Color.fromARGB(255, 126, 224, 88),
-                          child: const Icon(Icons.fastfood, size: 60, color: Colors.orange),
-                        ),
-                      )
-                    : Container(
-                        height: 200,
-                        color: Colors.orange.shade100,
-                        child: const Icon(Icons.fastfood, size: 60, color: Colors.orange),
-                      ),
-              ),
-              const SizedBox(height: 16),
-
-              Text(
-                namaMakanan,
-                style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 4),
-
-              Text(
-                "Rp. $hargaMakanan",
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.green,
-                ),
-              ),
-              const SizedBox(height: 8),
-
-              Row(
-                children: [
-                  ...List.generate(5, (index) {
-                    double ratingValue = double.tryParse(ratingMakanan.toString()) ?? 5.0;
-                    return Icon(
-                      index < ratingValue ? Icons.star : Icons.star_border,
-                      color: Colors.amber,
-                      size: 20,
-                    );
-                  }),
-                  const SizedBox(width: 6),
-                  Text(
-                    "($ratingMakanan / 5)",
-                    style: const TextStyle(color: Colors.grey),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: double.infinity,
+              height: 250,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 8,
+                    offset: const Offset(0, 4),
                   ),
                 ],
               ),
-
-              const Divider(height: 30),
-
-              const Text(
-                "Deskripsi (Info Makanan):",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 6),
-              Text(
-                deskripsiMakanan,
-                style: const TextStyle(fontSize: 14, color: Colors.black87),
-              ),
-
-              const SizedBox(height: 20),
-
-              const Text(
-                "Review:",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 6),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: Colors.orange.shade200),
+              child: Image.network(
+                controller.gambarMakanan,
+                fit: BoxFit.cover,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return const Center(
+                    child: CircularProgressIndicator(color: Colors.red),
+                  );
+                },
+                errorBuilder: (context, error, stackTrace) => const Center(
+                  child: Icon(Icons.broken_image, size: 64, color: Colors.grey),
                 ),
-                child: Text(
-                  "\"$reviewMakanan\"",
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontStyle: FontStyle.italic,
-                    color: Colors.black87,
+              ),
+            ),
+            
+
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    controller.namaMakanan,
+                    style: const TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 40, 40, 40),
+                    ),
                   ),
-                ),
+                  const SizedBox(height: 8),
+
+                  Text(
+                    "Rp. ${controller.hargaMakanan}",
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      color: Color.fromARGB(255, 228, 12, 12),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: Colors.amber.shade100,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.star, color: Colors.amber, size: 20),
+                            const SizedBox(width: 6),
+                            Text(
+                              "${controller.ratingMakanan} / 5",
+                              style: const TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black87,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    child: Divider(thickness: 1.5),
+                  ),
+
+                  const Text(
+                    "Deskripsi Makanan",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  
+                  Text(
+                    controller.deskripsiMakanan,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      color: Colors.black54,
+                      height: 1.5,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+
+                  const Text(
+                    "Ulasan Pembeli",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(14),
+                    decoration: BoxDecoration(
+                      color: Colors.orange.shade50,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Colors.orange.shade200),
+                    ),
+                    child: Text(
+                      "\"${controller.reviewMakanan}\"",
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontStyle: FontStyle.italic,
+                        color: Colors.black87,
+                        height: 1.4,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

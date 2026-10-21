@@ -11,62 +11,66 @@ class ListMakananPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 176, 192, 194), // Tambah warna background halaman
+      backgroundColor: const Color.fromARGB(255, 176, 192, 194),
       appBar: AppBar(
         title: const Text("List Makanan"),
-        backgroundColor: const Color.fromARGB(255, 226, 10, 10), // Tambah warna AppBar
-        foregroundColor: Colors.white, // Tambah warna teks AppBar
+        backgroundColor: const Color.fromARGB(255, 226, 10, 10),
+        foregroundColor: Colors.white,
       ),
       body: Container(
         margin: const EdgeInsets.all(10),
-        child: ListView.builder(
-          itemCount: controller.listMakanan.length,
-          itemBuilder: (context, index) {
-            final makanan = controller.listMakanan[index];
-            return InkWell(
-              onTap: () {
-                Get.toNamed(
-                  Routes.details_page,
-                  arguments: {
-                    'namaMakanan': makanan.namaMakanan,
-                    'hargaMakanan': makanan.hargaMakanan,
-                    'gambarMakanan': makanan.gambarMakanan,
-                    'deskripsiMakanan': makanan.deskripsiMakanan,
-                    'ratingMakanan': makanan.ratingMakanan,
-                    'reviewMakanan': makanan.reviewMakanan,
-                  },
-                );
-              },
-              child: Card(
-                color: Colors.orange.shade50,
-                elevation: 3,
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
+        child: Obx(
+          () => ListView.builder(
+            itemCount: controller.listMakanan.length,
+            itemBuilder: (context, index) {
+              final makanan = controller.listMakanan[index];
+              return Dismissible(
+                key: ValueKey(makanan.namaMakanan),
+                direction: DismissDirection.endToStart,
+                onDismissed: (_) => controller.listMakanan.removeAt(index),
+                background: Container(
+                  color: Colors.red,
+                  alignment: Alignment.centerRight,
+                  padding: const EdgeInsets.only(right: 20),
+                  child: const Icon(Icons.delete, color: Colors.white),
+                ),
+                child: InkWell(
+                  onTap: () => Get.toNamed(
+                    Routes.detail_makanan,
+                    arguments: {
+                      'namaMakanan': makanan.namaMakanan,
+                      'hargaMakanan': makanan.hargaMakanan,
+                      'gambarMakanan': makanan.gambarMakanan,
+                      'deskripsiMakanan': makanan.deskripsiMakanan,
+                      'ratingMakanan': makanan.ratingMakanan,
+                      'reviewMakanan': makanan.reviewMakanan,
+                    },
+                  ),
+                  child: Card(
+                    color: Colors.orange.shade50,
+                    elevation: 3,
+                    child: ListTile(
+                      title: Text(
                         makanan.namaMakanan,
                         style: const TextStyle(
-                          fontSize: 20, 
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(height: 5),
-                      Text(
+                      subtitle: Text(
                         "Rp. ${makanan.hargaMakanan}",
                         style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
-                          color: Color.fromARGB(255, 228, 12, 12), // Tambah warna teks harga
+                          color: Color.fromARGB(255, 228, 12, 12),
                         ),
                       ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );

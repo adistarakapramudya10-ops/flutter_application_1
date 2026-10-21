@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: "My Learning App",
       initialRoute: Routes.list_makanan,
-      getPages: Routes.MyPages,
+      getPages: Routes.myPages,
     );
   }
 }

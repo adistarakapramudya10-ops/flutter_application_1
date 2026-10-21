@@ -1,8 +1,9 @@
 import 'package:flutter_application_1/models/makanan_model.dart';
+import 'package:flutter_application_1/routes.dart';
 import 'package:get/get.dart';
 
 class ListMakananController extends GetxController {
-  List<MakananModel> listMakanan = [
+  RxList<MakananModel> listMakanan = [
     MakananModel(
       namaMakanan: "Soto Ayam",
       hargaMakanan: "10.000",
@@ -21,7 +22,7 @@ class ListMakananController extends GetxController {
     ),
     MakananModel(
       namaMakanan: "Pindang Kerbau",
-      hargaMakanan: "20.000",
+      hargaMakanan: "25.000",
       gambarMakanan: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScwJMJwwqE5o7EIJopR8Pch2KNRHL27cDtQH7M0RN8OziHiltVbjDk5bU&s=10",
       deskripsiMakanan: "Nasi pindang daging kerbau dengan daun melinjo khas.",
       ratingMakanan: 5,
@@ -29,7 +30,7 @@ class ListMakananController extends GetxController {
     ),
     MakananModel(
       namaMakanan: "Jenang",
-      hargaMakanan: "15.000",
+      hargaMakanan: "18.000",
       gambarMakanan: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiwJ4llazZfm183hLfhCmrHvNqusJ0uH37O65jJAGbdA&s=10",
       deskripsiMakanan: "Jenang legit manis cocok untuk oleh-oleh.",
       ratingMakanan: 4,
@@ -37,11 +38,13 @@ class ListMakananController extends GetxController {
     ),
     MakananModel(
       namaMakanan: "Bolang - Baling",
-      hargaMakanan: "5.000",
+      hargaMakanan: "6.000",
       gambarMakanan: "https://i0.wp.com/resepkoki.id/wp-content/uploads/2018/04/Resep-Odading.jpg?fit=1481%2C1144&ssl=1",
       deskripsiMakanan: "Roti goreng empuk bertabur wijen manis.",
       ratingMakanan: 4,
       reviewMakanan: "Enak dimakan pas hangat.",
     ),
-  ];
+  ].obs;
+
+
 }
