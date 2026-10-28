@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/controller/menu_drawer_controller.dart';
-import 'package:flutter_application_1/routes.dart'; // Sesuaikan jika memanggil rute
+import 'package:flutter_application_1/controller/main_menu_controller.dart';
+import 'package:flutter_application_1/Routes.dart';
+import 'package:get/get.dart';
 
 class MenuDrawerPage extends StatelessWidget {
   final MenuDrawerController _drawerController = MenuDrawerController();
@@ -10,7 +12,7 @@ class MenuDrawerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: const Color(0xFF111B21), // Tema gelap
+      backgroundColor: const Color.fromARGB(255, 7, 9, 10), 
       child: ListenableBuilder(
         listenable: _drawerController,
         builder: (context, child) {
@@ -18,9 +20,7 @@ class MenuDrawerPage extends StatelessWidget {
             padding: EdgeInsets.zero,
             children: [
               UserAccountsDrawerHeader(
-                decoration: const BoxDecoration(
-                  color: Color(0xFF1F2C34),
-                ),
+                decoration: const BoxDecoration(color: Color(0xFF1F2C34)),
                 accountName: Text(
                   _drawerController.userName,
                   style: const TextStyle(fontWeight: FontWeight.bold),
@@ -28,40 +28,33 @@ class MenuDrawerPage extends StatelessWidget {
                 accountEmail: Text(_drawerController.userEmail),
                 currentAccountPicture: const CircleAvatar(
                   backgroundColor: Colors.grey,
-                  child: Icon(Icons.person, size: 40, color: Colors.white),
+                  child: Icon(Icons.person, size: 40, color: Color.fromARGB(255, 241, 238, 238)),
                 ),
               ),
               _buildDrawerItem(
                 icon: Icons.home_outlined,
                 title: 'Home',
-                onTap: () => _drawerController.navigateTo(context, Routes.main_menu),
+                onTap: () => _selectTab(context, 0),
               ),
               _buildDrawerItem(
                 icon: Icons.history_outlined,
                 title: 'History',
+                onTap: () => _selectTab(context, 1),
+              ),
+              _buildDrawerItem(
+                icon: Icons.person_outline,
+                title: 'Profile',
+                onTap: () => _selectTab(context, 2),
+              ),
+              _buildDrawerItem(
+                icon: Icons.restaurant_menu,
+                title: 'Daftar Makanan',
                 onTap: () {
-                  // Ganti dengan rute history yang sesuai jika ada
-                  Navigator.pop(context); 
+                  Navigator.pop(context);
+                  Get.toNamed(Routes.listMakanan);
                 },
               ),
               const Divider(color: Colors.white24),
-              _buildDrawerItem(
-                icon: Icons.settings_outlined,
-                title: 'Pengaturan',
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              _buildDrawerItem(
-                icon: Icons.logout,
-                title: 'Keluar',
-                iconColor: Colors.redAccent,
-                textColor: Colors.redAccent,
-                onTap: () {
-                  // Tambahkan logika logout di sini
-                  Navigator.pop(context);
-                },
-              ),
             ],
           );
         },
@@ -69,7 +62,11 @@ class MenuDrawerPage extends StatelessWidget {
     );
   }
 
-  // Reusable component khusus untuk item list di dalam Drawer
+  void _selectTab(BuildContext context, int index) {
+    Navigator.pop(context);
+    Get.find<MainMenuController>().changesPage(index);
+  }
+
   Widget _buildDrawerItem({
     required IconData icon,
     required String title,
@@ -79,10 +76,7 @@ class MenuDrawerPage extends StatelessWidget {
   }) {
     return ListTile(
       leading: Icon(icon, color: iconColor),
-      title: Text(
-        title,
-        style: TextStyle(color: textColor, fontSize: 16),
-      ),
+      title: Text(title, style: TextStyle(color: textColor, fontSize: 16)),
       onTap: onTap,
     );
   }

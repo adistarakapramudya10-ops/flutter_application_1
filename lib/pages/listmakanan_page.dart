@@ -58,7 +58,7 @@ class ListMakananPage extends StatelessWidget {
                         ),
                       ),
                       subtitle: Text(
-                        "Rp. ${makanan.hargaMakanan}",
+                        makanan.hargaMakanan,
                         style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,

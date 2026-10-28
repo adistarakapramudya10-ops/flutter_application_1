@@ -7,7 +7,6 @@ class DetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  
     final controller = Get.put(DetailMakananController());
 
     return Scaffold(
@@ -26,11 +25,10 @@ class DetailsPage extends StatelessWidget {
               width: double.infinity,
               height: 250,
               decoration: BoxDecoration(
-                
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withValues(alpha: 0.1),
                     blurRadius: 8,
                     offset: const Offset(0, 4),
                   ),
@@ -50,7 +48,6 @@ class DetailsPage extends StatelessWidget {
                 ),
               ),
             ),
-            
 
             Padding(
               padding: const EdgeInsets.all(20),
@@ -68,7 +65,7 @@ class DetailsPage extends StatelessWidget {
                   const SizedBox(height: 8),
 
                   Text(
-                    "Rp. ${controller.hargaMakanan}",
+                    controller.hargaMakanan,
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
@@ -80,14 +77,21 @@ class DetailsPage extends StatelessWidget {
                   Row(
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 6,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.amber.shade100,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Row(
                           children: [
-                            const Icon(Icons.star, color: Colors.amber, size: 20),
+                            const Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                              size: 20,
+                            ),
                             const SizedBox(width: 6),
                             Text(
                               "${controller.ratingMakanan} / 5",
@@ -102,7 +106,7 @@ class DetailsPage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  
+
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 16),
                     child: Divider(thickness: 1.5),
@@ -117,7 +121,7 @@ class DetailsPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 6),
-                  
+
                   Text(
                     controller.deskripsiMakanan,
                     style: const TextStyle(

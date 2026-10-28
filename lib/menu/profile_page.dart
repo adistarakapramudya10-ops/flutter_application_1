@@ -6,7 +6,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF111B21), 
+      backgroundColor: const Color.fromARGB(255, 217, 221, 223), 
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -18,7 +18,7 @@ class ProfilePage extends StatelessWidget {
                   const CircleAvatar(
                     radius: 35,
                     backgroundColor: Colors.grey,
-                    child: Icon(Icons.person, size: 45, color: Colors.white),
+                    child: Icon(Icons.person, size: 45, color: Color.fromARGB(255, 0, 0, 0)),
                   ),
                   const SizedBox(width: 15),
                   const Expanded(
