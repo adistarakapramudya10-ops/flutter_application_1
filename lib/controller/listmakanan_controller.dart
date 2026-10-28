@@ -1,5 +1,4 @@
 import 'package:flutter_application_1/models/makanan_model.dart';
-import 'package:flutter_application_1/routes.dart';
 import 'package:get/get.dart';
 
 class ListMakananController extends GetxController {

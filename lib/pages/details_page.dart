@@ -26,6 +26,7 @@ class DetailsPage extends StatelessWidget {
               width: double.infinity,
               height: 250,
               decoration: BoxDecoration(
+                
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(

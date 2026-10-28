@@ -36,7 +36,7 @@ class ListMakananPage extends StatelessWidget {
                 ),
                 child: InkWell(
                   onTap: () => Get.toNamed(
-                    Routes.detail_makanan,
+                    Routes.detailMakanan,
                     arguments: {
                       'namaMakanan': makanan.namaMakanan,
                       'hargaMakanan': makanan.hargaMakanan,
