@@ -2,6 +2,8 @@
 
 A new Flutter project.
 
+Nama Adista Raka Pramudya
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
