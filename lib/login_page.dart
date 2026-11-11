@@ -1,83 +1,46 @@
 import 'package:flutter/material.dart';
-import 'components/Custom_textField.dart';
+import 'package:get/get.dart';
+import 'package:flutter_application_1/controller/login_controller.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class LoginPage extends StatelessWidget {
+  LoginPage({super.key});
 
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-  final TextEditingController txtUsername = TextEditingController();
-  final TextEditingController txtPassword = TextEditingController();
-  String statusLogin = "";
-
-  @override
-  void dispose() {
-    txtUsername.dispose();
-    txtPassword.dispose();
-    super.dispose();
-  }
+  final controller = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Login Page")),
-      body: Column(
-        children: [
-          Text(
-            "Welcome to Application $statusLogin",
-            style: const TextStyle(
-              fontSize: 20,
-              color: Color.fromARGB(255, 62, 4, 223),
-              fontStyle: FontStyle.italic,
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.all(10),
-            child: CustomTextField(
-              txtController: txtUsername,
-              hintText: "input username",
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.all(10),
-            child: TextField(
-              controller: txtPassword,
-              decoration: const InputDecoration(
-                hintText: "Input password",
+      appBar: AppBar(
+        title: const Text("login api"),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            TextField(
+              controller: controller.txtUsername,
+              decoration: const InputDecoration(labelText: "input username",
               ),
-              obscureText: true,
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    String username = txtUsername.text;
-                    String password = txtPassword.text;
-                    if (username == "admin" && password == "admin") {
-                      debugPrint("sukses login");
-                      statusLogin = "admin";
-                    } else {
-                      debugPrint("gagal login");
-                      statusLogin = "failed";
-                    }
-                  });
-                },
-                child: const Text("Login"),
+            TextField(
+              controller: controller.txtPassword,
+              decoration: const InputDecoration(labelText: "input password",
               ),
-              const SizedBox(width: 8),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text("Register"),
-              ),
-            ],
-          ),
-        ],
+              obscureText: true, 
+            ),
+            Obx(
+              () => controller.isLoading.value
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : OutlinedButton( 
+                      onPressed: () {
+                        controller.login();
+                      },
+                      child: const Text("login"),
+                    ),
+            ),
+          ],
+        ),
       ),
     );
   }

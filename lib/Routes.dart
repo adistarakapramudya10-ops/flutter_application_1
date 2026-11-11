@@ -2,7 +2,8 @@ import 'package:flutter_application_1/pages/confirm_reg_page.dart';
 import 'package:flutter_application_1/pages/details_page.dart';
 import 'package:flutter_application_1/pages/listmakanan_page.dart';
 import 'package:flutter_application_1/pages/registration_page.dart';
-import 'package:flutter_application_1/pages/MainMenu_page.dart'; 
+import 'package:flutter_application_1/pages/MainMenu_page.dart';
+import 'package:flutter_application_1/pages/login_clone_page.dart';
 import 'package:get/get.dart';
 
 class Routes {
@@ -12,6 +13,7 @@ class Routes {
   static const String listMakanan = '/list_makanan';
   static const String detailMakanan = '/detail_makanan';
   static const String mainMenu = '/main_menu';
+  static const String loginpage = '/loginpage';
 
   static final myPages = [
     GetPage(name: registration, page: () => RegistrationPage()),
@@ -20,5 +22,6 @@ class Routes {
     // 2. Hapus kata 'const' sebelum pemanggilan page
     GetPage(name: detailMakanan, page: () => DetailsPage()), 
     GetPage(name: mainMenu, page: () => MainMenuPage()), 
+    GetPage(name: loginpage, page: () => LoginClonePage()),
   ];
 }

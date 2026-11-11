@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:flutter_application_1/components/Custom_Button.dart';
 import 'package:flutter_application_1/components/Custom_textField.dart';
+import 'package:flutter_application_1/controller/login_controller.dart';
 
 class LoginClonePage extends StatelessWidget {
-  const LoginClonePage({super.key});
+  LoginClonePage({super.key});
+
+  final LoginController controller = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -29,18 +33,22 @@ class LoginClonePage extends StatelessWidget {
 
             const SizedBox(height: 24),
 
-            const CustomTextField(
+            CustomTextField(
+              txtController: controller.txtUsername,
               hintText: "Masukkan Nomor ponsel atau email",
             ),
 
-            const CustomTextField(
+            CustomTextField(
+              txtController: controller.txtPassword,
               hintText: "Masukkan Kata sandi",
               obscureText: true,
             ),
 
-            PrimaryButton(
-              text: "Login",
-              onPressed: () {},
+            Obx(
+              () => PrimaryButton(
+                text: "Login",
+                onPressed: controller.isLoading.value ? null : controller.login,
+              ),
             ),
 
             TextButton(
